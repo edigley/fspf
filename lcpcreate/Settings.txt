@@ -1,0 +1,45 @@
+Inputs:
+   Landscape: ARK30.LCP
+   Weather: GEN_0_IND_1.WTR
+   Winds: GEN_0_IND_1.WND
+   Adjustments: GEN_0_IND_1.ADJ
+   Fuel Moistures: GEN_0_IND_1.FMS
+   Conversions: NONE
+   Custom Fuel Models: CUSTOMFUEL.FMD
+   Coarse Woody Fuels: NONE
+   Burning Period: NONE
+   Project File: 
+   Bookmark File: 
+Outputs:
+   Shapefile: /home/cbrun/Framework/SPIF2/Arkadia/pob0/output/shape_0_1.shp
+   Raster file: Raster File: /home/cbrun/Framework/SPIF2/Arkadia/pob0/output/raster_0_1.toa
+   Display Units: METRIC
+   Output File Units: METRIC
+Model:
+   Parameters: TimeStep 20.0
+   Parameters: Visibles 20.0, 180000.0
+   Parameters: Perim Res 30.0
+   Parameters: Dist Res 30.0
+   Options: Crown Fire: DISABLED
+   Options: Spotting: DISABLED
+   Options: Spot Growth: DISABLED
+   Options: Ignition Delay: 0 mins
+   Options: Fire Level Dist. Check
+   Acceleration: OFF
+   Acceleration: DEFAULTS
+   Post Frontal: OFF
+   Dead Fuel Moisture: PRE-CALCULATED
+Simulate:
+   Duration: Conditioning (Mo/Day): 8/26
+   Duration: Starting (Mo/Day Hour:Min): 8/26 9:43
+   Duration: Ending (Mo/Day Hour:Min): 8/26 11:27
+   Options: Duration Reset: FALSE
+   Options: Restore Ignitions: FALSE
+   Options: Rotation Sensitive Ignitions: FALSE
+   Options: Show Fires as Grown: TRUE
+   Options: Ignition Spread Rates: FALSE
+   Options: Preserve Inactive Enclaves: TRUE
+   Options: Simulation Threads: 01
+Attack:
+View:
+   Viewport: MAXIMIZED
