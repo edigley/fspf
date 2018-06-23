@@ -26,16 +26,16 @@ void initWindninjaVariables(char *datafile)
 
     landscapeName = iniparser_getstr(datos,"farsite:landscapeName");
     landscapePath = iniparser_getstr(datos,"farsite:landscapePath");
-    elevfilename2   = iniparser_getstr(datos, "windninja:elevfilename");
-    baseAtmFile    = iniparser_getstr(datos, "windninja:baseAtmFile");
-    atmFile        = iniparser_getstr(datos, "windninja:atmFile");
-    resolution     = iniparser_getstr(datos, "windninja:resolution");
-    VGeneral       = iniparser_getstr(datos, "windninja:VGeneral");
-    VGrid          = iniparser_getstr(datos, "windninja:VGrid");
-    windinit       = iniparser_getstr(datos, "windninja:windinit");
-    vegetation     = iniparser_getstr(datos, "windninja:vegetation");
-    wn_num_theads  = iniparser_getint(datos, "windninja:wn_num_theads",1);
-    wn_path        = iniparser_getstr(datos, "windninja:wn_path");
+    elevfilename2 = iniparser_getstr(datos, "windninja:elevfilename");
+    baseAtmFile   = iniparser_getstr(datos, "windninja:baseAtmFile");
+    atmFile       = iniparser_getstr(datos, "windninja:atmFile");
+    resolution    = iniparser_getstr(datos, "windninja:resolution");
+    VGeneral      = iniparser_getstr(datos, "windninja:VGeneral");
+    VGrid         = iniparser_getstr(datos, "windninja:VGrid");
+    windinit      = iniparser_getstr(datos, "windninja:windinit");
+    vegetation    = iniparser_getstr(datos, "windninja:vegetation");
+    wn_num_theads = iniparser_getint(datos, "windninja:wn_num_theads",1);
+    wn_path       = iniparser_getstr(datos, "windninja:wn_path");
 }
 
 char * createATMFile(char *path_output, float vel, float dir, int id)

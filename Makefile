@@ -10,11 +10,11 @@ FILES = $(PATH_PROY)main.c $(PATH_PROY)master.c $(PATH_PROY)worker.c $(PATH_PROY
 
 normal:
 	$(CC) $(CFLAGS) $(FILES) -o genetic $(LIBS)
-	$(CC) $(CFLAGS) $(FILES) -o genPopulation $(LIBS)
-	$(CC) $(CFLAGS) $(FILES) -o farsiteWraper $(LIBS)
 
 all:
 	$(CC) $(CFLAGS) $(FILES) -o genetic $(LIBS)
+	$(CC) $(CFLAGS) $(FILES) -o genPopulation $(LIBS)
+	$(CC) $(CFLAGS) $(FILES) -o farsiteWraper $(LIBS)
 
 clean:
 	rm -rf $(PATH_PROY)*.o $(PATH_PROY)genetic

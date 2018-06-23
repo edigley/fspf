@@ -3,11 +3,9 @@
 #include <stdlib.h>
 #include <math.h>
 
-
 int submitPopulation(POPULATIONTYPE p, int pob, int gen);
 
-int main (int argc, char** argv)
-{
+int main (int argc, char** argv) {
     int num_individuals = 10;
     int i,n,srows,scols,rrows=0,rcols=0,mode=-1;
     double *mapaReal, *mapaSim, fitness, error;
@@ -16,10 +14,9 @@ int main (int argc, char** argv)
     char cmd[300],tmp[32];
     FILE *fd;
 
-
     mode=atoi(argv[1]);
 
-// EVOLVE POPULATION
+   // EVOLVE POPULATION
 
     //GENETIC_Init(int eli, double crossP, double mutaP, char * fRange, char * fBests, int guidedMutation, int guidedEllitism, int doCompu)
     if(GENETIC_Init(5,0.2,0.1,"range.txt","bests.pob",1,0,0)<1)
@@ -41,10 +38,7 @@ int main (int argc, char** argv)
 
 }
 
-
-
-int submitPopulation(POPULATIONTYPE p, int pob, int gen)
-{
+int submitPopulation(POPULATIONTYPE p, int pob, int gen) {
 
     int i;
     char command[300];

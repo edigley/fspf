@@ -50,6 +50,19 @@ void print_indv_default(INDVTYPE indv)
 
 }
 
+void print_individuo(int generation, INDVTYPE_FARSITE indv)
+{
+    printf("individuo: ");
+    printf("%d ",generation);
+    printf("%d ",indv.id);
+    int j;
+    for (j=0; j<indv.nparams_farsite; j++)
+    {
+        printf("%f ",indv.parameters[j]);
+    }
+    printf("%f %f %d\n",indv.error, indv.errorc,indv.executed);
+}
+
 void print_indv_farsite(INDVTYPE_FARSITE indv)
 {
     // printf("%d - %1.2f %1.2f %1.2f %1.2f %1.2f %1.2f %1.2f %1.2f %1.2f %1.2f %1.2f %d\n", indv.id, indv.m1, indv.m10, indv.m100, indv.mherb, indv.wndvel, indv.wnddir, indv.temp, indv.hum, indv.error, indv.errorc,indv.ExecTime,indv.executed);
@@ -85,12 +98,12 @@ int get_population_farsite(POPULATIONTYPE * pobla, char * nombreInitSet)
     for (i = 0; i <pobla->popuSize; i++)
     {
         // read each parameter
-//        fscanf(fichero, "%f %f %f %f %f %f %f %f %f %f %d", &pobla->popu_fs[i].m1, &pobla->popu_fs[i].m10, &pobla->popu_fs[i].m100, &pobla->popu_fs[i].mherb, &pobla->popu_fs[i].wndvel, &pobla->popu_fs[i].wnddir, &pobla->popu_fs[i].temp, &pobla->popu_fs[i].hum, &pobla->popu_fs[i].error, &pobla->popu_fs[i].errorc,&pobla->popu_fs[i].executed);
+        // fscanf(fichero, "%f %f %f %f %f %f %f %f %f %f %d", &pobla->popu_fs[i].m1, &pobla->popu_fs[i].m10, &pobla->popu_fs[i].m100, &pobla->popu_fs[i].mherb, &pobla->popu_fs[i].wndvel, &pobla->popu_fs[i].wnddir, &pobla->popu_fs[i].temp, &pobla->popu_fs[i].hum, &pobla->popu_fs[i].error, &pobla->popu_fs[i].errorc,&pobla->popu_fs[i].executed);
         pobla->popu_fs[i].id = i;
         pobla->popu_fs[i].class_ind = 'A';
         pobla->popu_fs[i].threads = 1;
-//	pobla->popu_fs[i].parameters = (float*)malloc(sizeof(float)*pobla->nParams);
-        //printf("Parametros a leer por individuo:%d\n",pobla->popu_fs[i].nparams_farsite);
+        // pobla->popu_fs[i].parameters = (float*)malloc(sizeof(float)*pobla->nParams);
+        // printf("Parametros a leer por individuo:%d\n",pobla->popu_fs[i].nparams_farsite);
         for (j=0; j<(pobla->nParams-2); j++)
         {
             fscanf(fichero,"%f ", &(pobla->popu_fs[i].parameters[j]));
@@ -134,7 +147,6 @@ int get_population_default(POPULATIONTYPE * pobla, char * nombreInitSet)
     }
 }
 
-
 // Print population in a file with filename "nombreSet"
 int save_population_farsite(POPULATIONTYPE pobla, char * nombreSet)
 {
@@ -151,8 +163,6 @@ int save_population_farsite(POPULATIONTYPE pobla, char * nombreSet)
     // first line: number of individuals in the population
     fprintf(fichero, "%d %d %d\n", pobla.popuSize, pobla.currentGen, pobla.nParams);
 
-//    for (i = 0; i < pobla.popuSize; i++) //write each individual
-    //      fprintf(fichero,"%1.2f %1.2f %1.2f %1.2f %1.2f %1.2f %1.2f %1.2f %1.4f %1.4f %d\n",pobla.popu_fs[i].m1, pobla.popu_fs[i].m10, pobla.popu_fs[i].m100, pobla.popu_fs[i].mherb, pobla.popu_fs[i].wndvel, pobla.popu_fs[i].wnddir, pobla.popu_fs[i].temp, pobla.popu_fs[i].hum, pobla.popu_fs[i].error, pobla.popu_fs[i].errorc,pobla.popu_fs[i].executed);
     for (i=0; i<pobla.popuSize; i++)
     {
         for(j=0; j<pobla.nParams-2; j++)
@@ -235,7 +245,6 @@ int print_populationScreen(POPULATIONTYPE pobla)
     return 1;
 }
 
-
 // obtiene el individuo con indice ind de la poblacion p
 int get_indv(POPULATIONTYPE *p, int indi, INDVTYPE * indv)
 {
@@ -258,7 +267,6 @@ int get_indv(POPULATIONTYPE *p, int indi, INDVTYPE * indv)
 
     return 1;
 }
-
 
 // ocsolote: ara cal que ordini per error i no per fitness
 // OBSOLETO!!!!!!!!! SI SE VUELVE A UTILIZAR AGREGAR EL SWAP DE LOS CAMPOS AGREGADOS:
@@ -460,8 +468,6 @@ int sortPopulationByErrorC(POPULATIONTYPE * p)
     return 1;
 }
 
-
-
 /**
  * Genera numeros Randon entre l y u
  *
@@ -470,14 +476,10 @@ int sortPopulationByErrorC(POPULATIONTYPE * p)
  *
  * @return Valor Randon Generado
  */
-double
-randLim(double l, double u)
+double randLim(double l, double u)
 {
     return(drand48() * (u-l) + l);
 }
-
-
-
 
 /**
  * busca el indice del individuo de menor error de toda la poblacion
@@ -502,7 +504,6 @@ int buscarIndividuoMinError(POPULATIONTYPE * p)
 
 }
 
-
 /**
  * almacena en un fichero el 1er individuo de una poblacion que
  * es el de menor error. Como la poblacion no esta ordenada,
@@ -522,13 +523,11 @@ int save_bestIndv(POPULATIONTYPE * p, char * fBest)
     INDVTYPE indv;
     int cantParams, x, numindv;
 
-
     numindv = buscarIndividuoMinError(p);
     get_indv(p, numindv, &indv);
     numIndv = p->popuSize;
     numGene = p->currentGen;
     printf("numGene:%d best:%d fbest:%s\n", numGene, numindv, fBest);
-
 
     // si es la primer generacion, abro el fichero como w para que borre lo que haya
     // si no es la primera agrego las lineas al contenido existente
@@ -590,19 +589,6 @@ int evolve_population_farsite (POPULATIONTYPE * p, int eli, double cross, double
 void indFarsiteToArray (INDVTYPE_FARSITE * pin1,float * p1)
 {
     int i;
-    /*
-     p1[0] = pin1->m1;
-      p1[1] = pin1->m10;
-      p1[2] = pin1->m100;
-      p1[3] = pin1->mherb;
-      p1[4] = pin1->wndvel;
-      p1[5] = pin1->wnddir;
-      p1[6] = pin1->temp;
-      p1[7] = pin1->hum;
-     */
-    //p1[8] = pin1.error;
-    //p1[9] = pin1.errorc;
-//printf("Converdison: to a :%d\n",pin1->nparams_farsite);
     for(i=0; i<pin1->nparams_farsite; i++)
     {
         p1[i] = pin1->parameters[i];
@@ -612,25 +598,11 @@ void indFarsiteToArray (INDVTYPE_FARSITE * pin1,float * p1)
 void arrayToIndFarsite (float * p1, INDVTYPE_FARSITE * pin1)
 {
     int i;
-    /*
-    pin1->m1 = p1[0];
-    pin1->m10 = p1[1];
-    pin1->m100 = p1[2];
-    pin1->mherb = p1[3];
-    pin1->wndvel = p1[4];
-    pin1->wnddir = p1[5];
-    pin1->temp = p1[6];
-    pin1->hum = p1[7];
-    */
     pin1->error = 0;
     pin1->errorc = 0;
-//printf("Converdison: to i :%d\n",pin1->nparams_farsite);
+    //printf("Converdison: to i :%d\n",pin1->nparams_farsite);
     for(i=0; i<pin1->nparams_farsite; i++)
     {
         pin1->parameters[i] = p1[i];
     }
-
-
-    //p1[8] = pin1.error;
-    //p1[9] = pin1.errorc;
 }

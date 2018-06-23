@@ -62,9 +62,6 @@ void Master_SendMPI_SetOfIndividualTask(int DEST, int chunkSize, int nroBloque, 
     //sleep(5);
 }
 
-
-
-
 INDVTYPE_FARSITE  * Worker_ReceivedMPI_SetOfIndividualTask(int chunkSize, int * nroBloque, int * num_generation, int num_individuals, int * signal, int wait,int * received)
 {
     char  buffer[TAM_BUFFER];
@@ -93,14 +90,14 @@ INDVTYPE_FARSITE  * Worker_ReceivedMPI_SetOfIndividualTask(int chunkSize, int * 
     }
     else
     {
-#ifdef MPE_ACTIVE
+    #ifdef MPE_ACTIVE
         MPE_Stop_log();
-#endif
+    #endif
         //sleep(1);
         MPI_Iprobe(0,DIETAG,MPI_COMM_WORLD,&flag,&status);
-#ifdef MPE_ACTIVE
+    #ifdef MPE_ACTIVE
         MPE_Start_log();
-#endif
+    #endif
     }
 
 
@@ -161,80 +158,7 @@ INDVTYPE_FARSITE  * Worker_ReceivedMPI_SetOfIndividualTask(int chunkSize, int * 
 
     return poblacion;
 }
-/*
-   INDVTYPE_FARSITE * Worker_ReceivedMPI_SetOfIndividualTask(int chunkSize, int * nroBloque, int * num_generation, int num_individuals, int * signal)
-{
-    char  buffer[TAM_BUFFER];
-    INDVTYPE_FARSITE * poblacion = NULL;
 
-    int posicion = 0;
-
-    unsigned char *msgGrupo;
-    MPI_Status  status;
-    int sig_value;
-
-    int myid;
-    MPI_Comm_rank(MPI_COMM_WORLD, &myid);
-
-    MPI_Recv(buffer, TAM_BUFFER,MPI_PACKED,0,TAG,MPI_COMM_WORLD, &status);
-    MPI_Unpack(buffer, TAM_BUFFER, &posicion, &sig_value, 1, MPI_INT, MPI_COMM_WORLD);
-
-    *signal = sig_value;
-
-    if (!(sig_value == FINISH_SIGNAL))
-    {
-      MPI_Unpack(buffer, TAM_BUFFER, &posicion, nroBloque, 1, MPI_INT, MPI_COMM_WORLD);
-      MPI_Unpack(buffer, TAM_BUFFER, &posicion, num_generation, 1, MPI_INT, MPI_COMM_WORLD);
-
-      poblacion = (INDVTYPE_FARSITE*)malloc(chunkSize * sizeof(INDVTYPE_FARSITE));
-      msgGrupo = (unsigned char *)malloc(sizeof(INDVTYPE_FARSITE) * chunkSize);
-
-      MPI_Recv(msgGrupo, sizeof(INDVTYPE_FARSITE) * chunkSize, MPI_UNSIGNED_CHAR, 0, TAG, MPI_COMM_WORLD, &status);
-      poblacion = (INDVTYPE_FARSITE*) msgGrupo;
-
-      printf("From Master TO Worker:%d with chunkSize:%d nroBloque:%d Num_gen:%d num_individuals:%d\n", myid, chunkSize, *nroBloque, *num_generation, num_individuals);
-    }
-
-    return poblacion;
-}
- */
-/*
-INDVTYPE_FARSITE * Worker_ReceivedMPI_SetOfIndividualTask(int chunkSize, int * nroBloque, int * num_generation, int num_individuals, int * signal)
-{
-    char  buffer[TAM_BUFFER];
-    INDVTYPE_FARSITE * poblacion = NULL;
-
-    int posicion = 0;
-
-    unsigned char *msgGrupo;
-    MPI_Status  status;
-    int sig_value;
-
-    int myid;
-    MPI_Comm_rank(MPI_COMM_WORLD, &myid);
-
-    MPI_Recv(buffer, TAM_BUFFER,MPI_PACKED,0,TAG,MPI_COMM_WORLD, &status);
-    MPI_Unpack(buffer, TAM_BUFFER, &posicion, &sig_value, 1, MPI_INT, MPI_COMM_WORLD);
-
-    *signal = sig_value;
-
-    if (!(sig_value == FINISH_SIGNAL))
-    {
-      MPI_Unpack(buffer, TAM_BUFFER, &posicion, nroBloque, 1, MPI_INT, MPI_COMM_WORLD);
-      MPI_Unpack(buffer, TAM_BUFFER, &posicion, num_generation, 1, MPI_INT, MPI_COMM_WORLD);
-
-      poblacion = (INDVTYPE_FARSITE*)malloc(chunkSize * sizeof(INDVTYPE_FARSITE));
-      msgGrupo = (unsigned char *)malloc(sizeof(INDVTYPE_FARSITE) * chunkSize);
-
-      MPI_Recv(msgGrupo, sizeof(INDVTYPE_FARSITE) * chunkSize, MPI_UNSIGNED_CHAR, 0, TAG, MPI_COMM_WORLD, &status);
-      poblacion = (INDVTYPE_FARSITE*) msgGrupo;
-
-      printf("From Master TO Worker:%d with chunkSize:%d nroBloque:%d Num_gen:%d num_individuals:%d\n", myid, chunkSize, *nroBloque, *num_generation, num_individuals);
-    }
-
-    return poblacion;
-}
-*/
 void Worker_SendMPI_IndividualError(INDVTYPE_FARSITE * poblacion, int chunk_size)
 {
     //int myid;
@@ -249,13 +173,6 @@ void Worker_SendMPI_IndividualError(INDVTYPE_FARSITE * poblacion, int chunk_size
     //MPI_Send((char*)poblacion, sizeof(INDVTYPE_FARSITE) * chunk_size, MPI_UNSIGNED_CHAR, poblacion->id, TAG, MPI_COMM_WORLD);
 }
 
-
-
-
-
-
-
-
 int Master_ReceiveMPI_IndividualError(int block_count, INDVTYPE_FARSITE * poblacion, int num_individuals, int chunkSize,int * individual,int currentgen, int *pend)
 {
     int i;
@@ -266,14 +183,14 @@ int Master_ReceiveMPI_IndividualError(int block_count, INDVTYPE_FARSITE * poblac
     int indv;
     int found=0;
 
-#ifdef MPE_ACTIVE
-    //MPE_Stop_log();
-#endif
-    //sleep(1);
+    #ifdef MPE_ACTIVE
+        //MPE_Stop_log();
+    #endif
+        //sleep(1);
     MPI_Iprobe(MPI_ANY_SOURCE,RESULTAG,MPI_COMM_WORLD,&flag,&status);
-#ifdef MPE_ACTIVE
-    //MPE_Start_log();
-#endif
+    #ifdef MPE_ACTIVE
+        //MPE_Start_log();
+    #endif
 
     if (flag != 0)
     {
@@ -337,144 +254,3 @@ int Master_ReceiveMPI_IndividualError(int block_count, INDVTYPE_FARSITE * poblac
 
 }
 
-
-// int Master_ReceiveMPI_IndividualError(int block_count, INDVTYPE_FARSITE * poblacion, int num_individuals, int chunkSize,int * individual)
-// {
-//     int i;
-//     //printf("Comienzo a recibir de un worker\n");
-//     MPI_Status  status;
-//
-//
-//
-//     char * msgGrupo;
-//     msgGrupo = (char *)malloc(sizeof(INDVTYPE_FARSITE) * chunkSize);
-//
-//     MPI_Recv(msgGrupo, sizeof(INDVTYPE_FARSITE) * chunkSize, MPI_UNSIGNED_CHAR, MPI_ANY_SOURCE, RESULTAG, MPI_COMM_WORLD, &status);
-//     INDVTYPE_FARSITE * temp = (INDVTYPE_FARSITE *)malloc(sizeof(INDVTYPE_FARSITE) * chunkSize);
-//     memcpy(temp,msgGrupo,sizeof(INDVTYPE_FARSITE) * chunkSize);
-//
-//
-//     //memcpy(&(poblacion[temp[i]),&msgGrupo,sizeof(INDVTYPE_FARSITE) * chunkSize);
-//     //free(msgGrupo);
-//     for(i = 0; i < chunkSize; i++)
-//     {
-//       //poblacion[block_count*chunkSize + i].error = temp[i].error;
-//       //printf("Recibido ind:%d del worker:%d con error:%1.4f\n", temp[i].id, status.MPI_SOURCE, temp[i].error);
-//       poblacion[temp[i].id].error = temp[i].error;
-//       //*individual = temp[i].id;
-//       memcpy(individual,temp[i].id,sizeof(int));
-//     }
-//     //free(temp);
-//     //(poblacion+(block_count*chunkSize)) = (INDVTYPE_FARSITE*) msgGrupo;
-//
-//     //MPI_Recv(poblacion+(block_count*chunkSize), sizeof(INDVTYPE_FARSITE) * chunkSize, MPI_UNSIGNED_CHAR, MPI_ANY_SOURCE, TAG, MPI_COMM_WORLD, &status);
-//     //printf("Recibo del worker %d\n", status.MPI_SOURCE);
-//
-//     return status.MPI_SOURCE;
-//
-// }
-/*
-int Master_ReceiveMPI_IndividualError(int block_count, INDVTYPE_FARSITE * poblacion, int num_individuals, int chunkSize,int * individual)
-{
-    int i;
-    //printf("Comienzo a recibir de un worker\n");
-    MPI_Status  status;
-
-
-    unsigned char *msgGrupo;
-    msgGrupo = (unsigned char *)malloc(sizeof(INDVTYPE_FARSITE) * chunkSize);
-
-    MPI_Recv(msgGrupo, sizeof(INDVTYPE_FARSITE) * chunkSize, MPI_UNSIGNED_CHAR, MPI_ANY_SOURCE, TAG, MPI_COMM_WORLD, &status);
-    INDVTYPE_FARSITE* temp = (INDVTYPE_FARSITE*)msgGrupo;
-    for(i = 0; i < chunkSize; i++)
-    {
-      //poblacion[block_count*chunkSize + i].error = temp[i].error;
-      //printf("Recibido ind:%d del worker:%d con error:%1.4f\n", temp[i].id, status.MPI_SOURCE, temp[i].error);
-      poblacion[temp[i].id].error = temp[i].error;
-      *individual = temp[i].id;
-    }
-
-    //(poblacion+(block_count*chunkSize)) = (INDVTYPE_FARSITE*) msgGrupo;
-
-    //MPI_Recv(poblacion+(block_count*chunkSize), sizeof(INDVTYPE_FARSITE) * chunkSize, MPI_UNSIGNED_CHAR, MPI_ANY_SOURCE, TAG, MPI_COMM_WORLD, &status);
-    //printf("Recibo del worker %d\n", status.MPI_SOURCE);
-
-    return status.MPI_SOURCE;
-
-}
-*/
-/*
-INDVTYPE_FARSITE * Worker_ReceivedMPI_SetOfIndividualTask(int chunkSize, int * nroBloque, int * num_generation, int num_individuals, int * signal, int wait ,int * received)
-{
-    char  buffer[TAM_BUFFER];
-    //char * buffer2 = (char *)malloc(sizeof(char) * TAM_BUFFER);
-    //printf("RMPI:in\n");
-    INDVTYPE_FARSITE * poblacion = NULL;
-    int posicion = 0;
-    char * poblaci = NULL;
-    char *msgGrupo;
-    MPI_Status  status;
-    int sig_value = -1;
-    int flag = 0;
-    int myid;
-    MPI_Request request;
-
-
-    MPI_Comm_rank(MPI_COMM_WORLD, &myid);
-
-    ////printf("COMM:Recibo no bloqueante de Worker %d a 0.\n",myid);
-    //MPI_Recv(buffer2, TAM_BUFFER,MPI_PACKED,0,DIETAG,MPI_COMM_WORLD, &Status);
-
-
-    MPI_Irecv(buffer,TAM_BUFFER,MPI_PACKED,0,DIETAG,MPI_COMM_WORLD, &request);
-
-    if (wait){
-      //printf("COMM:Espera bloqueante de Worker %d a 0.\n",myid);
-      MPI_Wait(&request, &status);
-      //printf("RMPI:Error1\n");
-      flag = 1;
-      //MPI_Cancel(request);
-      //MPI_Request_free(&request);
-    }else{
-      //printf("request:%d\n",(request));
-      ////printf("COMM:Espera no bloqueante de Worker %d a 0.\n",myid);
-      MPI_Test(&request, &flag, &status);
-      //MPI_Cancel(&request);
-      //printf("FAIL\n");
-    }
-
-
-    if (flag != 0)
-    {
-      //MPI_Recv(buffer2, TAM_BUFFER,MPI_PACKED,0,TAG,MPI_COMM_WORLD, &status);
-      //printf("Recibo!");
-      *received = 1;
-      MPI_Unpack(buffer, TAM_BUFFER, &posicion, &sig_value, 1, MPI_INT, MPI_COMM_WORLD);
-      //printf("COMM:Recibo de 0 a Worker %d con senal %d FINISH:%d.\n",myid,sig_value,FINISH_SIGNAL);
-      *signal = sig_value;
-
-      if (!(sig_value == FINISH_SIGNAL))
-      {
-	MPI_Unpack(buffer, TAM_BUFFER, &posicion, nroBloque, 1, MPI_INT, MPI_COMM_WORLD);
-	MPI_Unpack(buffer, TAM_BUFFER, &posicion, num_generation, 1, MPI_INT, MPI_COMM_WORLD);
-	msgGrupo = (char *)malloc(sizeof(INDVTYPE_FARSITE) * chunkSize);
-	//printf("COMM:Espera bloqueante Worker %d.\n",myid);
-	MPI_Recv(msgGrupo, sizeof(INDVTYPE_FARSITE) * chunkSize, MPI_UNSIGNED_CHAR, 0, WORKTAG, MPI_COMM_WORLD, &status);
-	poblaci = (char *)malloc(chunkSize * sizeof(INDVTYPE_FARSITE));
-	//poblaci = (INDVTYPE_FARSITE*) msgGrupo;
-	memcpy(poblaci,msgGrupo,sizeof(INDVTYPE_FARSITE) * chunkSize);
-	poblacion = (INDVTYPE_FARSITE*) poblaci;
-	//printf("COMM:Recibo de Master Worker %d individuo %d con %d threads.\n",myid,poblacion->id,poblacion->threads);
-
-	//printf("From Master TO Worker:%d with chunkSize:%d nroBloque:%d Num_gen:%d num_individuals:%d\n", myid, chunkSize, *nroBloque, *num_generation, num_individuals);
-      }
-      if ((!wait) && !(flag)){
-	MPI_Cancel(&request);
-      }
-    }
-   // printf("RMPI:out\n");
-    //free(buffer2);
-
-    return poblacion;
-}
-*/

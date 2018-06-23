@@ -5,5 +5,4 @@
 
 double fitnessYError(double * mapaReal, double * mapaSim, int Rows, int Cols, double t1, double t2, double * error);
 
-
 #endif //_FITNESS_H_

@@ -38,7 +38,6 @@
   							Function codes
  ---------------------------------------------------------------------------*/
 
-
 /*-------------------------------------------------------------------------*/
 /**
   @brief	Convert a string to lowercase.
@@ -51,7 +50,6 @@
   allocated, it will be modified at each function call (not re-entrant).
  */
 /*--------------------------------------------------------------------------*/
-
 char * strlwc(char * s)
 {
     static char l[ASCIILINESZ+1];
@@ -69,8 +67,6 @@ char * strlwc(char * s)
     return l ;
 }
 
-
-
 /*-------------------------------------------------------------------------*/
 /**
   @brief	Convert a string to uppercase.
@@ -83,7 +79,6 @@ char * strlwc(char * s)
   allocated, it will be modified at each function call (not re-entrant).
  */
 /*--------------------------------------------------------------------------*/
-
 char * strupc(char * s)
 {
     static char l[ASCIILINESZ+1];
@@ -101,8 +96,6 @@ char * strupc(char * s)
     return l ;
 }
 
-
-
 /*-------------------------------------------------------------------------*/
 /**
   @brief	Skip blanks until the first non-blank character.
@@ -113,7 +106,6 @@ char * strupc(char * s)
   given string.
  */
 /*--------------------------------------------------------------------------*/
-
 char * strskp(char * s)
 {
     char * skip = s;
@@ -121,8 +113,6 @@ char * strskp(char * s)
     while (isspace((int)*skip) && *skip) skip++;
     return skip ;
 }
-
-
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -138,7 +128,6 @@ char * strskp(char * s)
   (not re-entrant).
  */
 /*--------------------------------------------------------------------------*/
-
 char * strcrop(char * s)
 {
     static char l[ASCIILINESZ+1];
@@ -157,8 +146,6 @@ char * strcrop(char * s)
     *last = (char)0;
     return l ;
 }
-
-
 
 /*-------------------------------------------------------------------------*/
 /**

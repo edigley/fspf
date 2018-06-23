@@ -16,8 +16,6 @@
 #define TAG 0
 #define TAM_BUFFER 500
 
-
-
 void SendMPI_Finish_Signal(int DEST);
 void Master_SendMPI_SetOfIndividualTask(int DEST, int chunkSize, int nroBloque, int num_generation, int num_individuals, INDVTYPE_FARSITE *poblacion);
 //INDVTYPE_FARSITE * Worker_ReceivedMPI_SetOfIndividualTask(int chunkSize, int * nroBloque, int * num_generation, int num_individuals, int * signal);
